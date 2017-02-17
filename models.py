@@ -2,30 +2,38 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////db.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 db = SQLAlchemy(app)
 
 
 class Contract(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True)
-    email = db.Column(db.String(120), unique=True)
+    title = db.Column(db.String(80), unique=True)
+    body = db.Column(db.Text)
+    usage_limit = db.Column(db.Integer)
 
-    def __init__(self, username, email):
-        self.username = username
-        self.email = email
+
+    def __init__(self, title, body, usage_limit):
+        self.title = title
+        self.body = body
+        self.usage_limit = usage_limit
 
     def __repr__(self):
-        return '<User %r>' % self.username
+        return '<Contract %r>' % self.title
 
-class Signing(db.Model):
+class Agreement(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True)
+    name = db.Column(db.String(80), unique=True)
     email = db.Column(db.String(120), unique=True)
+    contract_id = db.Column(db.Integer, db.ForeignKey('contract.id'))
+    contract = db.relationship('Contract',
+        backref=db.backref('agreements', lazy='dynamic'))
 
-    def __init__(self, username, email):
-        self.username = username
+    def __init__(self, name, email, contract):
+        self.name = name
         self.email = email
+        self.contract = contract
 
     def __repr__(self):
-        return '<User %r>' % self.username
+        return '<Agreement %r>' % self.email
