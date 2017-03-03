@@ -4,6 +4,6 @@ def serialize_contract(c):
 
 
 def serialize_agreement(a):
-    return {'name': a.name, 'email': a.email,
+    return {'id': a.id, 'name': a.name, 'email': a.email,
             'contract': serialize_contract(a.contract),
             'signature': a.signature}

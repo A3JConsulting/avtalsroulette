@@ -1,3 +1,4 @@
+import traceback
 import random
 
 from flask.ext.restful import abort, Resource
@@ -67,12 +68,14 @@ class AgreementList(Resource):
             parser.add_argument('name')
             parser.add_argument('email')
             parser.add_argument('contract_id', type=int)
+            parser.add_argument('signature')
             data = parser.parse_args(strict=True)
-            db.session.add(Agreement(**data))
+            agreement = Agreement(**data)
+            db.session.add(agreement)
             db.session.commit()
         except Exception as e:
             abort(400, message=str(e))
-        return data, 201
+        return serialize_agreement(agreement), 201
 
 
 class AgreementDetail(Resource):
