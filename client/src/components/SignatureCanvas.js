@@ -27,6 +27,7 @@ export default class SignatureCanvas extends Component {
     onDebouncedItemChange: PropTypes.func, // function(idStroke, points:Point[]) { ... }
     onCompleteItem: PropTypes.func, // function(stroke:Stroke) { ... }
     debounceTime: PropTypes.number,
+    drawEnabled: PropTypes.bool.isRequired
   };
 
   static defaultProps = {
@@ -71,7 +72,18 @@ export default class SignatureCanvas extends Component {
     this.tool = this.props.toolsMap[tool](this.ctx);
   }
 
+  onTouchStart(e) {
+    if (!this.props.drawEnabled) {
+      return;
+    }
+    e.preventDefault();
+    this.onMouseDown.call(this, e);
+  }
+
   onMouseDown(e) {
+    if (!this.props.drawEnabled) {
+      return;
+    }
     const data = this.tool.onMouseDown(...this.getCursorPosition(e), this.props.color, this.props.size, this.props.fillColor);
     data && data[0] && this.props.onItemStart && this.props.onItemStart.apply(null, data);
     if (this.props.onDebouncedItemChange) {
@@ -80,17 +92,26 @@ export default class SignatureCanvas extends Component {
   }
 
   onDebouncedMove() {
+    if (!this.props.drawEnabled) {
+      return;
+    }
     if (typeof this.tool.onDebouncedMouseMove === 'function' && this.props.onDebouncedItemChange) {
       this.props.onDebouncedItemChange.apply(null, this.tool.onDebouncedMouseMove());
     }
   }
 
   onMouseMove(e) {
+    if (!this.props.drawEnabled) {
+      return;
+    }
     const data = this.tool.onMouseMove(...this.getCursorPosition(e));
     data && data[0] && this.props.onEveryItemChange && this.props.onEveryItemChange.apply(null, data);
   }
 
   onMouseUp(e) {
+    if (!this.props.drawEnabled) {
+      return;
+    }
     const data = this.tool.onMouseUp(...this.getCursorPosition(e));
     data && data[0] && this.props.onCompleteItem && this.props.onCompleteItem.apply(null, data);
     if (this.props.onDebouncedItemChange) {
@@ -101,10 +122,22 @@ export default class SignatureCanvas extends Component {
 
   getCursorPosition(e) {
     const {top, left} = this.canvas.getBoundingClientRect();
+    let clientX, clientY;
+    if (e.touches && e.touches.length) {
+      ({ clientX, clientY } = e.touches[0]);
+    } else if (e.changedTouches && e.changedTouches.length) {
+      ({ clientX, clientY } = e.changedTouches[0]);
+    } else {
+      ({ clientX, clientY } = e);
+    }
     return [
-      e.clientX - left,
-      e.clientY - top
+      clientX - left,
+      clientY - top
     ];
+  }
+
+  getDataURL() {
+    return this.canvas.toDataURL();
   }
 
   render() {
@@ -112,15 +145,15 @@ export default class SignatureCanvas extends Component {
     return (
       <canvas
         className={canvasClassName}
+        onTouchStart={this.onTouchStart.bind(this)}
         onMouseDown={this.onMouseDown}
+        onTouchMove={this.onMouseMove}
         onMouseMove={this.onMouseMove}
         onMouseOut={this.onMouseUp}
+        onTouchEnd={this.onMouseUp}
         onMouseUp={this.onMouseUp}
         width={width}
         height={height}
-        style={{
-          border: '1px solid black'
-        }}
       />
     )
   }

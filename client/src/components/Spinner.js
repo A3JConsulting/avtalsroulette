@@ -1,9 +1,10 @@
 import React from 'react';
 import svg from '../roulette-wheel.svg';
+import '../styles/Spinner.css';
 
 let Spinner = () => (
-  <div className="spinner">
-    <img src={svg} alt="Generating contract..." />
+  <div className="Spinner">
+    <img className="Spinner__wheel" src={svg} alt="Generating contract..." />
   </div>
 );
 

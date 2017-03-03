@@ -1,36 +1,41 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { setContractor, fetchContract } from '../actions';
+import '../styles/ContractorForm.css';
 
-let ContractorForm = ({ dispatch }) => {
+let ContractorForm = ({ onSubmit, headline, namePlaceholder, emailPlaceholder, submitText }) => {
   let name;
   let email;
 
   return (
-    <form
-      className="contractor-form"
-      onSubmit={e => {
-        e.preventDefault();
-        if (!name.value.trim()) {
-          return;
-        }
-        if (!email.value.trim()) {
-          return;
-        }
-        dispatch(setContractor({
-          name,
-          email
-        }));
-        dispatch(fetchContract());
-      }}
-    >
-      <input type="text" ref={node => { name = node; }} placeholder="Ditt för- och efternamn" />
-      <input type="email" ref={node => { email = node; }} placeholder="Din e-postadress" />
-      <button type="submit">Spin the wheel</button>
-    </form>
+    <div className="ContractorForm">
+      <p className="ContractorForm__paragraph">{headline}</p>
+      <form
+        className="ContractorForm__form"
+        onSubmit={e => {
+          e.preventDefault();
+          onSubmit(name.value, email.value);
+        }}
+      >
+        <input className="ContractorForm__input" type="text" ref={node => { name = node; }} placeholder={namePlaceholder} required />
+        <input className="ContractorForm__input" type="email" ref={node => { email = node; }} placeholder={emailPlaceholder} required />
+        <button className="ContractorForm__button" type="submit">{submitText}</button>
+      </form>
+    </div>
   );
 };
 
-ContractorForm = connect()(ContractorForm);
+ContractorForm.propTypes = {
+  onSubmit: React.PropTypes.func.isRequired,
+  headline: React.PropTypes.string,
+  submitText: React.PropTypes.string,
+  namePlaceholer: React.PropTypes.string,
+  emailPlaceholder: React.PropTypes.string
+};
+
+ContractorForm.defaultProps = {
+  headline: "Lorem ipsum dolor sit amet",
+  namePlaceholder: "Ditt för- och efternamn",
+  emailPlaceholder: "Din e-postadress",
+  submitText: "Spin the wheel"
+};
 
 export default ContractorForm;

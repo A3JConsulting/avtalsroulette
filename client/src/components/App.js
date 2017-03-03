@@ -1,25 +1,31 @@
 import React from 'react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { connect } from 'react-redux';
-import Splash from './Splash';
-import ContractorForm from './ContractorForm';
-import ContractForm from './ContractForm';
+import ContractorStep from './../containers/ContractorStep';
+import ContractStep from './../containers/ContractStep';
 import Spinner from './Spinner';
+import '../styles/App.css';
 
-let App = ({ showSplash, showContractorForm, showSpinner, showContractForm }) => (
-  <div className="app">
-    {showSplash ? <Splash /> : null}
-    {showContractorForm ? <ContractorForm /> : null}
-    {showSpinner ? <Spinner /> : null}
-    {showContractForm ? <ContractForm /> : null}
+let App = ({ showSplash, showContractorStep, showSpinner, showContractStep }) => (
+  <div className="App">
+    <ReactCSSTransitionGroup
+      transitionName="step"
+      transitionEnterTimeout={150}
+      transitionLeaveTimeout={150}
+      component="div"
+    >
+      {showContractorStep ? <ContractorStep /> : null}
+      {showSpinner ? <Spinner /> : null}
+      {showContractStep ? <ContractStep /> : null}
+    </ReactCSSTransitionGroup>
   </div>
 );
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    showSplash: state.splash === 'visible',
-    showContractorForm: state.splash !== 'visible' && state.contractor === null,
+    showContractorStep: state.contractor === null,
     showSpinner: state.contract.isFetching,
-    showContractForm: !state.contract.isFetching && state.contract.contract
+    showContractStep: !state.contract.isFetching && !!state.contract.data
   };
 };
 

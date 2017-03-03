@@ -1,5 +1,11 @@
 import { combineReducers } from 'redux';
-import { SET_CONTRACTOR, HIDE_SPLASH, REQUEST_CONTRACT, RECEIVE_CONTRACT } from '../actions';
+import {
+  SET_CONTRACTOR,
+  REQUEST_CONTRACT,
+  RECEIVE_CONTRACT,
+  SET_SIGNATURE_DATA_URL,
+  ACTIVATE_FINGERPRINT
+} from '../actions';
 
 const contractor = (state = null, action) => {
   switch (action.type) {
@@ -9,40 +15,52 @@ const contractor = (state = null, action) => {
     default:
       return state;
   }
-}
-
-const splash = (state = 'visible', action) => {
-  switch (action.type) {
-    case HIDE_SPLASH:
-      return 'hidden';
-
-    default:
-      return state;
-  }
-}
+};
 
 const contract = (state = {isFetching: false, contract: null}, action) => {
   switch (action.type) {
     case REQUEST_CONTRACT:
-      return Object.assign({}, state, {
+      return {
         isFetching: true,
-        contract: null
-      });
+        data: null
+      };
 
     case RECEIVE_CONTRACT:
-      return Object.assign({}, state, {
+      return {
         isFetching: false,
-        contract: action.contract
-      });
+        data: action.contract
+      };
 
     default:
       return state;
   }
-}
+};
+
+const signature = (state = null, action) => {
+  switch (action.type) {
+    case SET_SIGNATURE_DATA_URL:
+      return action.dataURL;
+
+    default:
+      return state;
+  }
+};
+
+const fingerprint = (state = {active: false}, action) => {
+  switch (action.type) {
+    case ACTIVATE_FINGERPRINT:
+      return action;
+
+    default:
+      return state;
+  }
+};
+
 const avtalsrouletteApp = combineReducers({
-  splash,
   contractor,
-  contract
+  contract,
+  signature,
+  fingerprint
 });
 
 export default avtalsrouletteApp;

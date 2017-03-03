@@ -1,0 +1,75 @@
+.ContractorForm {
+  margin-top: 10em;
+}
+
+.ContractorForm.step-leave {
+  opacity: 1;
+  top: 0;
+  left: 0;
+  right: 0;
+  position: absolute;
+  margin-top: 9em;
+}
+
+.ContractorForm.step-leave.step-leave-active {
+  opacity: 0.01;
+  transition: opacity .15s ease-in;
+}
+
+.ContractorForm__paragraph {
+  font-size: 2em;
+  margin: 0 0 1em 0;
+  text-align: center;
+}
+
+.ContractorForm__form {
+  width: 20em;
+  margin: 0 auto;
+  text-decoration: none;
+  color: #000;
+}
+
+.ContractorForm__input {
+  font-size: 1em;
+  padding: 1em;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0 0 -1px 0;
+  box-shadow: none;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 0.5em 0.5em 0 0;
+}
+
+.ContractorForm__input:focus,
+.ContractorForm__input:active {
+  outline: 0;
+  border-color: #5cb3fd;
+  position: relative;
+  z-index: 1;
+  transition: all .2s ease-in-out;
+}
+
+.ContractorForm__input + .ContractorForm__input {
+  border-radius: 0;
+}
+
+.ContractorForm__button {
+  font-size: 1em;
+  padding: 1em;
+  box-sizing: border-box;
+  box-shadow: 0;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 0 0 0.5em 0.5em;
+  width: 100%;
+  background-color: #f8f8f8;
+  cursor: pointer;
+  transition: all .2s ease-in-out;
+  -webkit-appearance: button;
+}
+
+.ContractorForm__button:active,
+.ContractorForm__button:hover,
+.ContractorForm__button:focus {
+  background-color: #eee;
+  outline: 0;
+}

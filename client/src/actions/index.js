@@ -1,13 +1,8 @@
 export const SET_CONTRACTOR = 'SET_CONTRACTOR';
-export const HIDE_SPLASH = 'HIDE_SPLASH';
 export const REQUEST_CONTRACT = 'REQUEST_CONTRACT';
 export const RECEIVE_CONTRACT = 'RECEIVE_CONTRACT';
-
-export const hideSplash = () => {
-  return {
-    type: HIDE_SPLASH
-  };
-};
+export const SET_SIGNATURE_DATA_URL = 'SET_SIGNATURE_DATA_URL';
+export const ACTIVATE_FINGERPRINT = 'ACTIVATE_FINGERPRINT';
 
 export const setContractor = (contractor) => {
   return {
@@ -16,13 +11,13 @@ export const setContractor = (contractor) => {
   };
 };
 
-export const requestContract = () => {
+const requestContract = () => {
   return {
     type: REQUEST_CONTRACT
   };
 }
 
-export const receiveContract = (contract) => {
+const receiveContract = (contract) => {
   return {
     type: RECEIVE_CONTRACT,
     contract
@@ -30,13 +25,41 @@ export const receiveContract = (contract) => {
 }
 
 export const fetchContract = () => {
-  return function (dispatch) {
+  return (dispatch) => {
     dispatch(requestContract());
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        dispatch(receiveContract({foo: 'bar'}));
+        dispatch(receiveContract({
+          name: 'Test contract',
+          content: require('./contract.txt')
+        }));
         resolve();
-      }, 5000);
+      }, 1);
     });
   };
+};
+
+const setSignature = (dataURL) => {
+  return {
+    type: SET_SIGNATURE_DATA_URL,
+    dataURL
+  };
+};
+
+export const signContract = (dataURL) => {
+  return (dispatch, getState) => {
+    const { contract, contractor } = getState();
+    dispatch(setSignature(dataURL));
+    return new Promise((resolve, reject) => {
+      console.log(`${contractor.name} signed contract ${contract.data.name} using signature ${dataURL}`);
+      resolve();
+    });
+  };
+};
+
+export const activateFingerprint = (active) => {
+  return {
+    type: ACTIVATE_FINGERPRINT,
+    active
+  }
 };
