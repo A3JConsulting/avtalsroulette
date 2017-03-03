@@ -23,7 +23,7 @@
 }
 
 .ContractForm__signature {
-  margin-bottom: -100px;
+  margin-bottom: -70px;
 }
 
 .ContractForm__name {
@@ -49,9 +49,11 @@
   width: 50%;
   transform: translate(-50%);
   opacity: 0;
+  display: none;
 }
 
 .ContractForm > .Fingerprint.Fingerprint--active {
+  display: block;
   transition: opacity 2s linear;
   opacity: 1;
 }

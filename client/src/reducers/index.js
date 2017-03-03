@@ -4,7 +4,8 @@ import {
   REQUEST_CONTRACT,
   RECEIVE_CONTRACT,
   SET_SIGNATURE_DATA_URL,
-  ACTIVATE_FINGERPRINT
+  ACTIVATE_FINGERPRINT,
+  RECEIVE_AGREEMENT,
 } from '../actions';
 
 const contractor = (state = null, action) => {
@@ -56,11 +57,22 @@ const fingerprint = (state = {active: false}, action) => {
   }
 };
 
+const agreement = (state = null, action) => {
+  switch (action.type) {
+    case RECEIVE_AGREEMENT:
+      return agreement;
+
+    default:
+      return state;
+  }
+};
+
 const avtalsrouletteApp = combineReducers({
   contractor,
   contract,
   signature,
-  fingerprint
+  fingerprint,
+  agreement
 });
 
 export default avtalsrouletteApp;

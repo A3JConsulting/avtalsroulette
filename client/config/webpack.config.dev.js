@@ -105,8 +105,7 @@ module.exports = {
           /\.(js|jsx)$/,
           /\.css$/,
           /\.json$/,
-          /\.svg$/,
-          /\.txt$/
+          /\.svg$/
         ],
         loader: 'url',
         query: {
@@ -149,11 +148,6 @@ module.exports = {
         query: {
           name: 'static/media/[name].[hash:8].[ext]'
         }
-      },
-      // "raw" loader for txt
-      {
-        test: /\.txt$/,
-        loader: 'raw'
       }
       // ** STOP ** Are you adding a new loader?
       // Remember to add the new extension(s) to the "url" loader exclusion list.

@@ -5,7 +5,7 @@ import ContractForm from '../components/ContractForm';
 const mapStateToProps = (state, ownProps) => {
   return {
     contractorName: state.contractor.name,
-    content: state.contract.data.content.replace(/\{name\}/, state.contractor.name),
+    body: state.contract.data.body.replace(/\{name\}/, state.contractor.name),
     isSigned: state.signature !== null,
     date: (new Date()).toLocaleDateString()
   };
