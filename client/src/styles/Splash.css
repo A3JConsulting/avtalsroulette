@@ -1,0 +1,10 @@
+.Splash {
+  text-align: center;
+  margin-top: 10em;
+}
+
+.Splash__link {
+  font-size: 5em;
+  text-decoration: none;
+  color: #000;
+}

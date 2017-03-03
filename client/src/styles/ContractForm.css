@@ -1,0 +1,57 @@
+.ContractForm {
+  box-sizing: border-box;
+  padding: 3.6275695284em;
+  height: 67.8857142857em;
+  overflow: hidden;
+  box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.ContractForm.step-enter {
+  position: absolute;
+  left: 0;
+  right: 0;
+  opacity: 0.01;
+}
+
+.ContractForm.step-enter.step-enter-active {
+  opacity: 1;
+  transition: opacity .15s ease-in;
+}
+
+.ContractForm--signed {
+}
+
+.ContractForm__signature {
+  margin-bottom: -100px;
+}
+
+.ContractForm__name {
+  width: 40%;
+  margin: 0;
+  border-top: 1px solid #000;
+  padding: 1em 0 0 0;
+}
+
+.deed {
+  filter: blur(5px);
+  transition: filter .2s ease-in-out;
+}
+
+.ContractForm--signed .deed {
+  filter: none;
+}
+
+.ContractForm > .Fingerprint {
+  position: absolute;
+  top: 5em;
+  left: 50%;
+  width: 50%;
+  transform: translate(-50%);
+  opacity: 0;
+}
+
+.ContractForm > .Fingerprint.Fingerprint--active {
+  transition: opacity 2s linear;
+  opacity: 1;
+}

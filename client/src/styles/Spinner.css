@@ -1,0 +1,40 @@
+.Spinner {
+  margin-top: 5em;
+}
+
+.Spinner.step-enter {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-top: 4em;
+  opacity: 0.01;
+}
+
+.Spinner.step-enter.step-enter-active {
+  opacity: 1;
+  transition: opacity .15s ease-in;
+}
+
+.Spinner.step-leave {
+  opacity: 1;
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+
+.Spinner.step-leave.step-leave-active {
+  opacity: 0.01;
+  transition: opacity .15s ease-in;
+}
+
+.Spinner__wheel {
+  display: block;
+  width: 50%;
+  margin: 0 auto;
+  animation: Spinner__wheel-spin 8s ease-out forwards;
+}
+
+@keyframes Spinner__wheel-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(2000deg); }
+}

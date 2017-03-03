@@ -1,0 +1,30 @@
+.SignButton {
+  font-size: 16px;
+  position: fixed;
+  top: 3.6275695284em;
+  left: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  box-sizing: border-box;
+  width: 4em;
+  height: 4em;
+  border-radius: 100%;
+  background-color: #fff;
+  margin-left: 17em;
+  transition: all .2s ease-in-out;
+  -webkit-appearance: button;
+}
+
+.SignButton:active,
+.SignButton:hover,
+.SignButton:focus {
+  background-color: #eee;
+  outline: 0;
+}
+
+.SignButton--pressed,
+.SignButton--pressed:active,
+.SignButton--pressed:hover,
+.SignButton--pressed:focus {
+  transition: background-color 1s linear 1s;
+  background-color: #88ff88;
+}
