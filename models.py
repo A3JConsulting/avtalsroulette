@@ -1,3 +1,5 @@
+import datetime
+
 from db import db
 
 
@@ -19,6 +21,12 @@ class Agreement(db.Model):
     signature = db.Column(db.Text)
     contract_id = db.Column(db.Integer, db.ForeignKey('contract.id'))
     contract = db.relationship('Contract', backref=db.backref('agreements', lazy='dynamic'))
+    created_at = db.Column(db.DateTime(), default=datetime.datetime.now)
+    updated_at = db.Column(db.DateTime())
 
     def __repr__(self):
         return '<Agreement %r>' % self.email
+
+    def save(self, *args, **kwargs):
+        self.updated_at = datetime.datetime.now()
+        return super(Agreement, self).save(*args, **kwargs)
