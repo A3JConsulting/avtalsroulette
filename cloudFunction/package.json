@@ -1,0 +1,16 @@
+{
+  "name": "avtalsroulette-cloud-function",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^4.0.0",
+    "knex": "^0.12.8",
+    "mysql": "^2.13.0"
+  }
+}
