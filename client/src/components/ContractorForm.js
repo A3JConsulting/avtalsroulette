@@ -32,7 +32,7 @@ ContractorForm.propTypes = {
 };
 
 ContractorForm.defaultProps = {
-  headline: "Lorem ipsum dolor sit amet",
+  headline: "Snurra avtalsrouletten",
   namePlaceholder: "Ditt för- och efternamn",
   emailPlaceholder: "Din e-postadress",
   submitText: "Spin the wheel"
