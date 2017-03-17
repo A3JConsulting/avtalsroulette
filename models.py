@@ -4,6 +4,7 @@ from db import db
 class Contract(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(80), unique=True)
+    summary = db.Column(db.String(500), unique=True)
     body = db.Column(db.Text)
     usage_limit = db.Column(db.Integer)
 
@@ -21,4 +22,3 @@ class Agreement(db.Model):
 
     def __repr__(self):
         return '<Agreement %r>' % self.email
-
