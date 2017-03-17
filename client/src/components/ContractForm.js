@@ -9,7 +9,9 @@ let ContractForm = ({ contractorName, body, fingerprintActive, isSigned, date, o
   let canvas;
 
   const onSign = () => {
-    onSubmit(canvas.getDataURL());
+    onSubmit(canvas.getDataURL()).then(() => {
+      window.print();
+    });
   };
 
   return (

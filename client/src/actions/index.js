@@ -84,6 +84,7 @@ export const signContract = (dataURL) => {
           resolve();
         }).catch(err => {
           console.error(err);
+          reject();
         });
     });
   };
