@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.1",
     "dotenv": "^4.0.0",
     "knex": "^0.12.8",
     "mysql": "^2.13.0"

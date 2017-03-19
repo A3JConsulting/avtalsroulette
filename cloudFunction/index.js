@@ -1,17 +1,12 @@
 require('dotenv').config({silent: true});
+const cors = require('cors');
 
 const db = require('knex')({
   client: 'mysql',
   connection: process.env.DB_URL
 });
 
-/**
- * Responds to any HTTP request that can provide a "message" field in the body.
- *
- * @param {!Object} req Cloud Function request context.
- * @param {!Object} res Cloud Function response context.
- */
-exports.getAgreements = function helloWorld(req, res) {
+function getAgreements(req, res) {
   db('agreement')
     .join('contract', 'agreement.contract_id', 'contract.id')
     .select('agreement.created_at', 'agreement.name', 'agreement.signature', 'contract.summary')
@@ -23,4 +18,17 @@ exports.getAgreements = function helloWorld(req, res) {
         status: 'Internal serverless error'
       });
     });
+}
+
+/**
+ * Responds to any HTTP request that can provide a "message" field in the body.
+ *
+ * @param {!Object} req Cloud Function request context.
+ * @param {!Object} res Cloud Function response context.
+ */
+exports.getAgreements = function helloWorld(req, res) {
+  const corsFn = cors();
+  corsFn(req, res, () => {
+    getAgreements(req, res);
+  });
 };
