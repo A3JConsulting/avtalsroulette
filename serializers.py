@@ -1,4 +1,4 @@
-models.pyimport json
+models.py import json
 
 
 def serialize_contract(c):
