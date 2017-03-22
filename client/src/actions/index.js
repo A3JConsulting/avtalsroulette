@@ -68,7 +68,7 @@ export const signContract = (dataURL) => {
     return new Promise((resolve, reject) => {
       const body = JSON.stringify({
         name: contractor.name,
-        email: contractor.email,
+        email: "placeholder@email.tld",
         contract_id: contract.data.id,
         signature: dataURL
       });

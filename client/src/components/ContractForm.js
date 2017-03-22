@@ -5,7 +5,7 @@ import SignButton from './SignButton';
 import Fingerprint from './Fingerprint';
 import '../styles/ContractForm.css';
 
-let ContractForm = ({ contractorName, body, fingerprintActive, isSigned, date, onSubmit }) => {
+let ContractForm = ({ contractorName, body, fingerprintActive, isSigned, onSubmit }) => {
   let canvas;
 
   const onSign = () => {
@@ -19,8 +19,7 @@ let ContractForm = ({ contractorName, body, fingerprintActive, isSigned, date, o
       className={isSigned ? "ContractForm ContractForm--signed" : "ContractForm"}
       onSubmit={e => { e.preventDefault(); }}
     >
-      <div dangerouslySetInnerHTML={{__html: body }} />
-      <p>Stockholm, {date}</p>
+      <div className="ContractForm__body" dangerouslySetInnerHTML={{__html: body }} />
       <SignatureCanvas
         ref={node => { canvas = node; }}
         width={652}
@@ -46,7 +45,6 @@ ContractForm.propTypes = {
   body: React.PropTypes.string.isRequired,
   fingerprintActive: React.PropTypes.bool.isRequired,
   isSigned: React.PropTypes.bool.isRequired,
-  date: React.PropTypes.string.isRequired,
   onSubmit: React.PropTypes.func.isRequired
 };
 

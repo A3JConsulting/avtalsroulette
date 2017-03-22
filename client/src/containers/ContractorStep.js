@@ -3,8 +3,8 @@ import { setContractor, fetchContract } from '../actions';
 import ContractorForm from '../components/ContractorForm';
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  onSubmit: (name, email) => {
-    dispatch(setContractor({ name, email }));
+  onSubmit: (name) => {
+    dispatch(setContractor({ name }));
     dispatch(fetchContract());
   }
 });
