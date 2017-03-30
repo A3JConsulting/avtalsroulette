@@ -9,6 +9,7 @@ class Contract(db.Model):
     summary = db.Column(db.String(500), unique=True)
     body = db.Column(db.Text)
     usage_limit = db.Column(db.Integer)
+    sponsor_logo = db.Column(db.String(250))
 
     def __repr__(self):
         return '<Contract %r>' % self.title

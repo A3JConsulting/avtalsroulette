@@ -9,7 +9,7 @@ const db = require('knex')({
 function getAgreements(req, res) {
   db('agreement')
     .join('contract', 'agreement.contract_id', 'contract.id')
-    .select('agreement.created_at', 'agreement.name', 'agreement.signature', 'contract.summary')
+    .select('agreement.created_at', 'agreement.name', 'agreement.signature', 'contract.summary', 'contract.sponsor_logo')
     .orderBy('agreement.created_at', 'desc')
     .then(result => {
       res.status(200).json(result);
