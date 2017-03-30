@@ -105,7 +105,9 @@ class AgreementDetail(Resource):
 
 class Random(Resource):
     def get(self):
-        contracts = Contract.query.all()
+        contracts = Contract.query.from_statement(
+            'SELECT contract.*, COUNT(agreement.contract_id) as uses FROM contract LEFT JOIN agreement ON agreement.contract_id=contract.id GROUP BY contract.id HAVING contract.usage_limit>uses OR contract.usage_limit IS NULL'
+        ).all()
         contract = self.randomize(contracts)
         return serialize_contract(contract)
 
