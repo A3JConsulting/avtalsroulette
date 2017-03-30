@@ -2,7 +2,6 @@
   line-height: 1.62;
   padding: 0 25px 2em 25px;
   box-sizing: border-box;
-  height: 
 }
 @media (min-width: 768px) {
   .Agreement {
@@ -28,4 +27,11 @@
   background-size: contain;
   background-repeat: no-repeat;
   margin-top: 1em;
+}
+
+.Agreement__sponsor-logo {
+  max-width: 20%;
+  max-height: 100%;
+  float: left;
+  margin-right: 0.5em;
 }
